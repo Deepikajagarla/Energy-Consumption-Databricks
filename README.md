@@ -457,7 +457,7 @@ Slack Notification
 
 # 👩‍💻 Author
 
-**Bhagya Sree**
+**Deepika Jagarla**
 
 ## GitHub Repository
 
