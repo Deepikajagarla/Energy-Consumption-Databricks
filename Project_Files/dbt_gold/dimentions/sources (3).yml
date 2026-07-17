@@ -1,0 +1,210 @@
+version: 2
+
+sources:
+  - name: silver
+    database: Silver_Catalog
+    schema: silver_sch
+
+    tables:
+      - name: Silver_Energy_Usage
+      - name: Silver_Weather
+      - name: Silver_Grid_Load
+      - name: Silver_Tariff
+      - name: Silver_Device_Metrics
+
+
+
+# version: 2
+
+models:
+
+  # ==========================================================
+  # Dimension Tables
+  # ==========================================================
+
+  - name: dim_household
+    description: Household Dimension Table
+
+    columns:
+      - name: household_id
+        description: Unique Household Identifier
+        tests:
+          - unique
+          - not_null
+
+      - name: region_name
+        tests:
+          - not_null
+
+      - name: city_name
+        tests:
+          - not_null
+
+      - name: meter_type
+        tests:
+          - not_null
+
+      - name: customer_category
+        tests:
+          - not_null
+
+      - name: grid_zone
+        tests:
+          - not_null
+
+
+  - name: dim_weather
+    description: Weather Dimension Table
+
+    columns:
+
+      - name: weather_region
+        tests:
+          - not_null
+
+      - name: weather_city
+        tests:
+          - not_null
+
+      - name: weather_station
+        tests:
+          - not_null
+
+      - name: climate_zone
+        tests:
+          - not_null
+
+
+  - name: dim_device
+    description: Device Dimension Table
+
+    columns:
+
+      - name: device_category
+        tests:
+          - not_null
+
+      - name: device_brand
+        tests:
+          - not_null
+
+      - name: device_model
+        tests:
+          - not_null
+
+      - name: maintenance_status
+        tests:
+          - not_null
+
+      - name: installation_region
+        tests:
+          - not_null
+
+
+  - name: dim_grid
+    description: Grid Dimension Table
+
+    columns:
+
+      - name: grid_region
+        tests:
+          - not_null
+
+      - name: substation_name
+        tests:
+          - not_null
+
+      - name: feeder_line
+        tests:
+          - not_null
+
+      - name: distribution_zone
+        tests:
+          - not_null
+
+      - name: grid_operator
+        tests:
+          - not_null
+
+
+  - name: dim_tariff
+    description: Tariff Dimension Table
+
+    columns:
+
+      - name: tariff_region
+        tests:
+          - not_null
+
+      - name: tariff_city
+        tests:
+          - not_null
+
+      - name: tariff_plan_type
+        tests:
+          - not_null
+
+      - name: billing_cycle
+        tests:
+          - not_null
+
+      - name: utility_provider
+        tests:
+          - not_null
+
+
+  # ==========================================================
+  # Fact Table
+  # ==========================================================
+
+  - name: fact_energy_usage
+    description: Household Energy Usage Fact Table
+
+    columns:
+
+      - name: household_id
+        tests:
+          - not_null
+
+      - name: timestamp
+        tests:
+          - not_null
+
+      - name: energy_usage_kwh
+
+      - name: daily_consumption_kwh
+
+      - name: active_power_kw
+
+      - name: peak_demand_kw
+
+
+  # ==========================================================
+  # Aggregate Tables
+  # ==========================================================
+
+  - name: daily_energy_summary
+    description: Daily Energy Consumption Summary Table
+
+  - name: monthly_energy_summary
+    description: Monthly Energy Consumption Summary Table
+
+  - name: yearly_energy_summary
+    description: Yearly Energy Consumption Summary Table
+
+
+  # ==========================================================
+  # Dashboard Tables
+  # ==========================================================
+
+  - name: weather_impact
+    description: Weather Impact Dashboard Table
+
+  - name: device_monitoring
+    description: Device Monitoring Dashboard Table
+
+  - name: billing_analytics
+    description: Billing Analytics Dashboard Table
+
+  - name: executive_dashboard
+    description: Executive Dashboard Table
